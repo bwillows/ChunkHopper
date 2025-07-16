@@ -1,0 +1,25 @@
+# IntelliJ project files
+.idea/
+*.iml
+
+# IntelliJ ignored files
+/shelf/
+/workspace.xml
+/httpRequests/
+/mavenHomeManager.xml
+/dataSources/
+/dataSources.local.xml
+
+# Maven build output
+/target/
+
+# Build artifacts
+*.jar
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Runtime-generated plugin data (NOT source files)
+plugins/

@@ -1,0 +1,71 @@
+# Used for number formatting
+locale: en_US
+
+item:
+  material: "HOPPER"
+  damage: 0
+  name: "&e&lCHUNKHOPPER"
+  lore:
+    - "&fPlace this chunkhopper"
+    - "&fto automatically collect all dropped"
+    - "&fitems within the chunk it's located in"
+
+block:
+  material: "HOPPER"
+  damage: 0
+
+hologram:
+  enabled: true
+  update-interval: 15
+  text:
+    - "&e&lCHUNKHOPPER"
+    - "&7Items Collected: &e%lifetime_items_collected%"
+    - "&7Total Sold Worth: &e$%lifetime_sales%"
+
+# Periodic updates sent to players about their ChunkHopper(s).
+sell-updates:
+  enabled: true
+  interval: 300 # in seconds
+  text:
+    - "&e&lChunkHopper Summary"
+    - "&7Items sold this period: &e%period_items_sold%"
+    - "&7Total worth sold: &e$%period_items_sold_worth%"
+
+settings:
+  auto-save-interval: 300
+  delete-invalid-chunkhoppers: false
+  drop-give-on-ground-inventory-full: true
+  only-owner-can-access: false
+  explosion-break: true
+  explosion-drop: true
+  auto-sell: true
+  ignore-renamed-enchanted-items: true
+
+  # How many chunkhoppers a player can place.
+  # Controlled by permission: chunkhopper.amount.X or chunkhopper.amount.*
+  max-placed-permission: true
+
+
+  # Whitelists / blacklists what item ChunkHopper(s) can pick up.
+  # Set to "ALL" to allow/restrict all items.
+  pickup-whitelist:
+    - "ALL"
+  pickup-blacklist:
+    - "SPAWNER"
+    - "MOB_SPAWNER"
+
+  # Whether to additionally scan chunks for dropped items manually
+  chunk-entity-scan:
+    enabled: true
+    interval: 30
+
+worth:
+  local:
+    enabled: true
+    weight: 3
+  shopgui:
+    enabled: true
+    weight: 2
+  essentials:
+    enabled: true
+    weight: 1

@@ -1,0 +1,25 @@
+name: ChunkHopper
+version: '${project.version}'
+main: bwillows.chunkhopper.ChunkHopper
+softdepend:
+  - WildStacker
+  - RoseStacker
+  - Vault
+  - Essentials
+  - ShopGUIPlus
+depend:
+  - NBTAPI
+api-version: 1.13
+commands:
+  chunkhopper:
+    description: Main command for ChunkHopper
+    aliases:
+      - chunkhoppers
+permissions:
+  chunkhopper.*:
+      description: Gives access to all the commands.
+      default: op
+  chunkhopper.amount.*:
+    description: Gives access to place a certain number of ChunkHoppers. ( if configured )
+    default: op
+
