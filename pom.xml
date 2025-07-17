@@ -6,7 +6,7 @@
 
     <groupId>bwillows</groupId>
     <artifactId>ChunkHopper</artifactId>
-    <version>devSNAPSHOT</version>
+    <version>7-17-2025_v1</version>
     <packaging>jar</packaging>
 
     <name>ChunkHopper</name>

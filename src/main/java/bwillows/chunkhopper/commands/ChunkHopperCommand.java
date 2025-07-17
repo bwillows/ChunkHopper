@@ -31,7 +31,8 @@ public class ChunkHopperCommand implements CommandExecutor {
             return true;
         }
         if (args.length < 1) {
-            sender.sendMessage(ChatColor.RED + "/chunkhopper help");
+            sender.sendMessage(ChatColor.YELLOW + "ChunkHopper " + ((ChunkHopper.version != null) ? ChunkHopper.version + " " : "") + "by Brooke Willows");
+            sender.sendMessage(ChatColor.YELLOW + "Use \"/chunkhopper help\" for a list of commands.");
             return true;
         }
 
