@@ -1,6 +1,7 @@
 package bwillows.chunkhopper.stack;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -28,5 +29,16 @@ public class ItemPickup {
             }
         }
         return stack.getAmount();
+    }
+
+    public int getAmount(org.bukkit.entity.Entity entity) {
+        if(!(entity instanceof Item))
+            return 0;
+        for (ItemAmountProvider provider : providers) {
+            if (provider.canHandle(entity)) {
+                return provider.getAmount(entity);
+            }
+        }
+        return 1; // Default
     }
 }

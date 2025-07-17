@@ -6,6 +6,8 @@ import bwillows.chunkhopper.model.ChunkHopper;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -103,6 +105,43 @@ public class Manager {
     }
 
     public boolean canCollectItem(ItemStack itemStack) {
+        if(itemStack == null || itemStack.getType() == null)
         return false;
+
+        if(!bwillows.chunkhopper.ChunkHopper.instance.chunkHopperConfig.config.settings.whitelistedAll) {
+            if(!bwillows.chunkhopper.ChunkHopper.instance.chunkHopperConfig.config.settings.whitelistedItems.contains(itemStack.getType()))
+                return false;
+        }
+
+        if(bwillows.chunkhopper.ChunkHopper.instance.chunkHopperConfig.config.settings.blacklistedAll)
+            return false;
+
+        if(bwillows.chunkhopper.ChunkHopper.instance.chunkHopperConfig.config.settings.blacklistedItems.contains(itemStack.getType()))
+            return false;
+
+        if(bwillows.chunkhopper.ChunkHopper.instance.chunkHopperConfig.config.settings.ignoreRenamedEnchantedItems) {
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            if (itemMeta != null
+                    && (itemMeta.hasDisplayName()
+                    || itemMeta.hasLore()
+                    || itemMeta.hasEnchants()
+                    || !itemMeta.getItemFlags().isEmpty())
+            ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean canCollectItem(Entity item) {
+        if(!(item instanceof Item))
+            return false;
+        ItemStack itemStack = ((Item) item).getItemStack().clone();
+        if(itemStack == null || itemStack.getType() == null)
+            return false;
+        itemStack.setAmount(1);
+
+        return canCollectItem(itemStack);
     }
 }

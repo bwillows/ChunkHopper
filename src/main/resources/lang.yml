@@ -11,3 +11,4 @@ on-recieve-inventory-full: "&aRecieved ChunkHopper but your inventory was full s
 set-worth: "&aSuccesfully set worth"
 worth: "$%worth%"
 max-placed: "&cYou've reached the maximum amount of ChunkHoppers you can place"
+on-sell: "&a&l+ $%worth%"

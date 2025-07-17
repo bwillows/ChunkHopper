@@ -12,7 +12,6 @@ public class ShopGUIWorthProvider implements WorthProvider {
 
     private final int weight;
     private final ShopGuiPlugin plugin;
-    private final Map<ItemType, Double> cache = new HashMap<>();
 
     public ShopGUIWorthProvider(ShopGuiPlugin plugin, int weight) {
         this.plugin = plugin;
@@ -32,14 +31,12 @@ public class ShopGUIWorthProvider implements WorthProvider {
 
     @Override
     public double getWorth(ItemType type) {
-        if (type == null || !isEnabled()) return 0.0;
-        if (cache.containsKey(type)) return cache.get(type);
+        if (!isEnabled()) return 0.0;
 
         ItemStack stack = new ItemStack(type.material);
         stack.setDurability(type.damage);
 
         double price = ShopGuiPlusApi.getItemStackPriceSell(stack);
-        if (price > 0) cache.put(type, price);
         return price;
     }
 

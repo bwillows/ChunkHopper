@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class EntityDeathListener implements Listener {
+    // TODO : Handle entity drops at death
+
     @EventHandler
     public void EntityDeathListener(EntityDeathEvent event) {
         Location deathLocation = event.getEntity().getLocation();
@@ -21,8 +23,8 @@ public class EntityDeathListener implements Listener {
 
         bwillows.chunkhopper.model.ChunkHopper chunkHopper = ChunkHopper.instance.manager.getChunkHopperAtChunk(chunkLocation);
 
+        // TODO: first check if entity is stacked, modified, or otherwhise not using vanilla drop list
         List<ItemStack> dropList = event.getDrops();
-
 
     }
 }

@@ -16,20 +16,24 @@ block:
 
 hologram:
   enabled: true
-  update-interval: 15
+  update-interval: 60
   text:
-    - "&e&lCHUNKHOPPER"
+    - "&6&l* &e&lCHUNKHOPPER &6&l*"
     - "&7Items Collected: &e%lifetime_items_collected%"
     - "&7Total Sold Worth: &e$%lifetime_sales%"
 
 # Periodic updates sent to players about their ChunkHopper(s).
+# sent once per interval per player, not per ChunkHopper.
 sell-updates:
-  enabled: true
-  interval: 300 # in seconds
+  enabled: false
+  interval: 600 # in seconds
+  # TODO: add optional sound effects
   text:
-    - "&e&lChunkHopper Summary"
-    - "&7Items sold this period: &e%period_items_sold%"
-    - "&7Total worth sold: &e$%period_items_sold_worth%"
+    - "&r"
+    - "&r    &e&lCHUNKHOPPER UPDATE"
+    - "&r    &7Items Collected: &e%period_items_collected%"
+    - "&r    &7Earned: &e$%period_sales%"
+    - "&r"
 
 settings:
   auto-save-interval: 300
@@ -44,7 +48,6 @@ settings:
   # How many chunkhoppers a player can place.
   # Controlled by permission: chunkhopper.amount.X or chunkhopper.amount.*
   max-placed-permission: true
-
 
   # Whitelists / blacklists what item ChunkHopper(s) can pick up.
   # Set to "ALL" to allow/restrict all items.

@@ -37,7 +37,6 @@ public class LocalWorthProvider implements WorthProvider {
         this.config = YamlConfiguration.loadConfiguration(worthFile);
 
         loadWorths();
-
     }
 
     public void loadWorths() {
@@ -86,7 +85,6 @@ public class LocalWorthProvider implements WorthProvider {
 
     @Override
     public double getWorth(ItemType type) {
-        if (type == null) return 0.0;
         if(worthMap.get(type) == null) return 0.0;
         return worthMap.get(type);
     }

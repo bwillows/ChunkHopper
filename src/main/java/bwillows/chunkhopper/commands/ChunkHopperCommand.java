@@ -127,8 +127,7 @@ public class ChunkHopperCommand implements CommandExecutor {
             return true;
             case "reload":
                 {
-                    ChunkHopper.instance.chunkHopperConfig.reload();
-                    ChunkHopper.instance.data.save();
+                    ChunkHopper.instance.reload();
                     String message = ChunkHopper.instance.chunkHopperConfig.langYml.getString("reload");
                     if (message != null) {
                         message = ChatColor.translateAlternateColorCodes('&', message);

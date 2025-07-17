@@ -62,9 +62,9 @@ public class Data {
 
             ConfigurationSection statsSection = chunkHopperSection.getConfigurationSection("statistics");
             if(statsSection != null) {
-                chunkHopper.statistics.itemsCollected = statsSection.getLong("lifetime-items-collected", 0L);
-                chunkHopper.statistics.itemsSold = statsSection.getLong("lifetime-items-sold", 0L);
-                chunkHopper.statistics.sales = statsSection.getDouble("lifetime-sales", 0.0);
+                chunkHopper.statistics.lifetimeItemsCollected = statsSection.getLong("lifetime-items-collected", 0L);
+                chunkHopper.statistics.lifetimeItemsSold = statsSection.getLong("lifetime-items-sold", 0L);
+                chunkHopper.statistics.lifetimeSales = statsSection.getDouble("lifetime-sales", 0.0);
             }
 
             ConfigurationSection itemsSection = chunkHopperSection.getConfigurationSection("items");
@@ -122,9 +122,9 @@ public class Data {
             settingsSection.set("collection-enabled", chunkHopper.settings.collectionEnabled);
 
             ConfigurationSection statsSection = chunkHopperSection.createSection("statistics");
-            statsSection.set("lifetime-items-collected", chunkHopper.statistics.itemsCollected);
-            statsSection.set("lifetime-items-sold", chunkHopper.statistics.itemsSold);
-            statsSection.set("lifetime-sales", chunkHopper.statistics.sales);
+            statsSection.set("lifetime-items-collected", chunkHopper.statistics.lifetimeItemsCollected);
+            statsSection.set("lifetime-items-sold", chunkHopper.statistics.lifetimeItemsSold);
+            statsSection.set("lifetime-sales", chunkHopper.statistics.lifetimeSales);
 
             ConfigurationSection itemsSection = chunkHopperSection.createSection("items");
             for(Map.Entry<bwillows.chunkhopper.common.ItemType, Long> entry : chunkHopper.items.entrySet()) {

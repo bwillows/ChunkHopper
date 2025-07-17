@@ -10,9 +10,9 @@ items:
     lore: []
   item:
     slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
-    material: "" # UNSUPPORTED
+    material: "%material"
     damage: 0
-    name: "" # UNSUPPORTED
+    name: "%material%"
     # Supported placeholders:
     # %quantity%, %worth%
     lore:
@@ -21,6 +21,8 @@ items:
       - "&r"
       - "&7&o(( right click to &ewithdraw&r &7&oitems ))"
       - "&7&o(( left click to &esell&r &7&oitems ))"
+
+  # Set any item's slot to -1 to disable
   next-page:
     slot: 44
     material: "PAPER"
@@ -34,32 +36,45 @@ items:
     name: "&e&lPREVIOUS PAGE"
     lore: [ ]
   # Update INK_SAC and damage on 1.13+ to RED_DYE, GREEN_DYE, etc
-  holograms:
+  holograms-enabled:
     slot: 9
-    states:
-      enabled:
-        material: "INK_SACK"
-        damage: 10
-        name: "&a&lHOLOGRAMS ENABLED"
-        lore:
-          - "&fClick to toggle hologram visibility"
-      disabled:
-        damage: 1
-        name: "&c&lHOLOGRAMS DISABLED"
-        lore:
-          - "&fClick to toggle hologram visibility"
-    autosell:
-      slot: 18
-      states:
-        enabled:
-          material: "INK_SACK"
-          damage: 10
-          name: "&a&lAUTO SELL ENABLED"
-          lore:
-            - "&fClick to toggle auto sell"
-        disabled:
-          material: "INK_SACK"
-          damage: 1
-          name: "&c&lAUTO SELL DISABLED"
-          lore:
-            - "&fClick to toggle auto sell"
+    material: "INK_SACK"
+    damage: 10
+    name: "&a&lHOLOGRAMS ENABLED"
+    lore:
+      - "&fClick to toggle hologram visibility"
+  holograms-disabled:
+    slot: 9
+    material: "INK_SACK"
+    damage: 1
+    name: "&c&lHOLOGRAMS DISABLED"
+    lore:
+      - "&fClick to toggle hologram visibility"
+  autosell-enabled:
+    slot: 18
+    material: "INK_SACK"
+    damage: 10
+    name: "&a&lAUTO SELL ENABLED"
+    lore:
+      - "&fClick to toggle auto sell"
+  autosell-disabled:
+    slot: 18
+    material: "INK_SACK"
+    damage: 1
+    name: "&c&lAUTO SELL DISABLED"
+    lore:
+      - "&fClick to toggle auto sell"
+  collection-enabled:
+    slot: 27
+    material: "INK_SACK"
+    damage: 10
+    name: "&a&lCOLLECTION ENABLED"
+    lore:
+      - "&fClick to toggle collecting items"
+  collection-disabled:
+    slot: 27
+    material: "INK_SACK"
+    damage: 1
+    name: "&c&lCOLLECTION DISABLED"
+    lore:
+      - "&fClick to toggle collecting items"

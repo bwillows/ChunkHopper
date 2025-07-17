@@ -23,7 +23,6 @@ public class EssentialsWorthProvider implements WorthProvider {
 
     private final int weight;
     private final IEssentials essentials;
-    private final Map<ItemType, Double> cache = new HashMap<>();
 
     public EssentialsWorthProvider(int weight) {
         this.weight = weight;
@@ -43,8 +42,7 @@ public class EssentialsWorthProvider implements WorthProvider {
 
     @Override
     public double getWorth(ItemType type) {
-        if (type == null || !isEnabled()) return 0.0;
-        if (cache.containsKey(type)) return cache.get(type);
+        if (!isEnabled()) return 0.0;
 
         ItemStack stack = new ItemStack(type.material);
         stack.setDurability(type.damage);
@@ -52,7 +50,6 @@ public class EssentialsWorthProvider implements WorthProvider {
         BigDecimal value = essentials.getWorth().getPrice(essentials, stack);
         double result = value != null ? value.doubleValue() : 0.0;
 
-        if (result > 0) cache.put(type, result);
         return result;
     }
 

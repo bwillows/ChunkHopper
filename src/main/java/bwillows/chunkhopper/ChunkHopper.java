@@ -35,6 +35,7 @@ public final class ChunkHopper extends JavaPlugin {
     public WorthHandler worth;
     public EconomyHandler economy;
     public TaskManager taskManager;
+    public GUI gui;
 
     @Override
     public void onEnable() {
@@ -64,6 +65,8 @@ public final class ChunkHopper extends JavaPlugin {
         manager = new Manager();
         data = new Data();
         taskManager = new TaskManager();
+        gui = new GUI();
+
 
         if (Bukkit.getPluginManager().getPlugin("ShopGUIPlus") != null) {
             Bukkit.getPluginManager().registerEvents(new ShopGUIPostEnableListener(), this);
@@ -75,13 +78,33 @@ public final class ChunkHopper extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ChunkUnloadListener(), this);
         Bukkit.getPluginManager().registerEvents(new WorldLoadListener(), this);
         Bukkit.getPluginManager().registerEvents(new EntityExplodeListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PistonListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryPickupItemListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemSpawnListener(), this);
+        Bukkit.getPluginManager().registerEvents(gui, this);
 
         getCommand("chunkhopper").setExecutor(new ChunkHopperCommand());
+
 
     }
 
     @Override
     public void onDisable() {
+        gracefulShutdown();
+    }
 
+    public void reload() {
+        gracefulShutdown();
+        chunkHopperConfig.reload();
+        taskManager.createTasks();
+    }
+
+    public void gracefulShutdown() {
+        taskManager.cancelTasks();
+        for(bwillows.chunkhopper.model.ChunkHopper chunkHopper : manager.chunkHoppers.values()) {
+            chunkHopper.removeHologram();
+        }
+        data.save();
     }
 }

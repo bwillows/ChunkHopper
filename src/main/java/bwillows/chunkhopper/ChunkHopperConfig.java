@@ -140,7 +140,7 @@ public class ChunkHopperConfig {
         config.block.damage = Short.parseShort(configYml.getString("block.damage"));
         config.hologram.enabled = configYml.getBoolean("hologram.enabled");
         config.hologram.updateInterval = configYml.getInt("hologram.update-interval");
-        config.hologram.lines = configYml.getStringList("hologram.lines");
+        config.hologram.lines = configYml.getStringList("hologram.text");
         config.sellUpdates.enabled = configYml.getBoolean("sell-updates.enabled");
         config.sellUpdates.interval = configYml.getInt("sell-updates.interval");
         config.sellUpdates.lines = configYml.getStringList("sell-updates.text");

@@ -25,7 +25,7 @@ public class WorthHandler {
 
         // Essentials
 
-        if (Bukkit.getPluginManager().isPluginEnabled("Esesentials")) {
+        if (Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
             ConfigurationSection essentialsSection = worthSection.getConfigurationSection("essentials");
             if (essentialsSection != null && essentialsSection.getBoolean("enabled", false)) {
                 providers.add(new EssentialsWorthProvider(
@@ -47,7 +47,7 @@ public class WorthHandler {
             providers.add(this.localProvider);
         }
 
-        providers.sort(Comparator.comparingInt(WorthProvider::getWeight).reversed());
+        providers.sort(Comparator.comparing(WorthProvider::getWeight, Comparator.reverseOrder()));
     }
 
     public void tryRegisterShopGUIWorthProvider(ShopGuiPlugin plugin) {

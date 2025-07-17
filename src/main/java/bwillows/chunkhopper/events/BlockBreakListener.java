@@ -2,6 +2,7 @@ package bwillows.chunkhopper.events;
 
 import bwillows.chunkhopper.ChunkHopper;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -25,6 +26,7 @@ public class BlockBreakListener implements Listener {
                 if(!player.hasPermission("chunkhopper.*")) {
                     String message = ChunkHopper.instance.chunkHopperConfig.langYml.getString("no-permission-break");
                     if(message != null && !message.trim().isEmpty()) {
+                        message = ChatColor.translateAlternateColorCodes('&', message);
                         player.sendMessage(message);
                     }
 
@@ -43,6 +45,7 @@ public class BlockBreakListener implements Listener {
 
         String message = ChunkHopper.instance.chunkHopperConfig.langYml.getString("on-break");
         if(message != null && !message.trim().isEmpty()) {
+            message = ChatColor.translateAlternateColorCodes('&', message);
             player.sendMessage(message);
         }
 
