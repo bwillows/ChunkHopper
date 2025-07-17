@@ -34,32 +34,42 @@ public class BlockPlaceListener implements Listener {
                 player.sendMessage(message);
             }
 
-            Bukkit.getScheduler().runTask(ChunkHopper.instance, () -> {
+            Bukkit.getScheduler().runTaskLater(ChunkHopper.instance, () -> {
                 Block block = event.getBlockPlaced();
                 block.getState().update(true, false);
-            });
+            }, 5L);
             return;
         } else {
             if(ChunkHopper.instance.chunkHopperConfig.config.settings.maxPlacedPermission) {
                 int maxAmount = Utils.getMaxChunkHopperAmount(player);
                 Set<Location> playerChunkHoppers = ChunkHopper.instance.manager.chunkHoppersByOwner.get(player.getUniqueId());
 
-                if(playerChunkHoppers != null) {
-                    if(playerChunkHoppers.size() >= maxAmount) {
-                        event.setCancelled(true);
-                        String message = ChunkHopper.instance.chunkHopperConfig.langYml.getString("max-placed");
-                        if(message != null && !message.trim().isEmpty()) {
-                            message = ChatColor.translateAlternateColorCodes('&', message);
-                            player.sendMessage(message);
+                boolean restrict = false;
+
+                if(maxAmount == 0) {
+                    restrict = true;
+                } else {
+                    if(playerChunkHoppers != null) {
+                        if(playerChunkHoppers.size() >= maxAmount) {
+                            restrict = true;
                         }
-
-                        Bukkit.getScheduler().runTask(ChunkHopper.instance, () -> {
-                            Block block = event.getBlockPlaced();
-                            block.getState().update(true, false);
-                        });
-
-                        return;
                     }
+                }
+
+                if(restrict) {
+                    event.setCancelled(true);
+                    String message = ChunkHopper.instance.chunkHopperConfig.langYml.getString("max-placed");
+                    if(message != null && !message.trim().isEmpty()) {
+                        message = ChatColor.translateAlternateColorCodes('&', message);
+                        player.sendMessage(message);
+                    }
+
+                    Bukkit.getScheduler().runTaskLater(ChunkHopper.instance, () -> {
+                        Block block = event.getBlockPlaced();
+                        block.getState().update(true, false);
+                    }, 5L);
+
+                    return;
                 }
             }
 
