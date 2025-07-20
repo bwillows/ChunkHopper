@@ -138,28 +138,59 @@ public class ChunkHopper {
     public void createHologram(List<String> hologramLinesRaw) {
         removeHologram();
 
+        if (hologramLinesRaw == null || hologramLinesRaw.isEmpty()) return;
+
         List<String> hologramLines = new ArrayList<>(hologramLinesRaw);
 
-        for(int i = 0; i < hologramLines.size(); i++) {
-            hologramLines.set(i, ChatColor.translateAlternateColorCodes('&', hologramLines.get(i)));
+        String playerName = "";
+        if (owner != null) {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(owner);
-            String playerName = new String("");
-            if(offlinePlayer != null) {
+            if (offlinePlayer != null && offlinePlayer.getName() != null) {
                 playerName = offlinePlayer.getName();
             }
-            hologramLines.set(i, hologramLines.get(i)
-                    .replace("%player%", playerName)
-                    .replace("%lifetime_items_collected%", bwillows.chunkhopper.ChunkHopper.numberFormat.format(statistics.lifetimeItemsCollected))
-                    .replace("%lifetime_items_sold%", bwillows.chunkhopper.ChunkHopper.numberFormat.format(statistics.lifetimeItemsSold))
-                    .replace("%lifetime_sales%", bwillows.chunkhopper.ChunkHopper.numberFormat.format(statistics.lifetimeSales))
-                    .replace("%period_items_collected%", bwillows.chunkhopper.ChunkHopper.numberFormat.format(statistics.periodItemsCollected))
-                    .replace("%period_items_sold%", bwillows.chunkhopper.ChunkHopper.numberFormat.format(statistics.periodItemsSold))
-                    .replace("%period_sales%", bwillows.chunkhopper.ChunkHopper.numberFormat.format(statistics.periodSales))
-            );
         }
 
-        Location topLocation = new Location(location.getWorld(), location.getX() + 0.5, location.getY() - 0.2 + (0.25 * hologramLines.size()), location.getZ() + 0.5);
+        String lifetimeItemsCollected = safeFormat(statistics != null ? statistics.lifetimeItemsCollected : 0L);
+        String lifetimeItemsSold = safeFormat(statistics != null ? statistics.lifetimeItemsSold : 0L);
+        String lifetimeSales = safeFormat(statistics != null ? statistics.lifetimeSales : 0D);
+        String periodItemsCollected = safeFormat(statistics != null ? statistics.periodItemsCollected : 0L);
+        String periodItemsSold = safeFormat(statistics != null ? statistics.periodItemsSold : 0L);
+        String periodSales = safeFormat(statistics != null ? statistics.periodSales : 0D);
+
+        for (int i = 0; i < hologramLines.size(); i++) {
+            String line = hologramLines.get(i);
+            if (line == null) continue;
+
+            line = ChatColor.translateAlternateColorCodes('&', line);
+            line = line.replace("%player%", playerName != null ? playerName : "")
+                    .replace("%lifetime_items_collected%", lifetimeItemsCollected)
+                    .replace("%lifetime_items_sold%", lifetimeItemsSold)
+                    .replace("%lifetime_sales%", lifetimeSales)
+                    .replace("%period_items_collected%", periodItemsCollected)
+                    .replace("%period_items_sold%", periodItemsSold)
+                    .replace("%period_sales%", periodSales);
+
+            hologramLines.set(i, line);
+        }
+
+        if (location == null || location.getWorld() == null) return;
+
+        Location topLocation = new Location(
+                location.getWorld(),
+                location.getX() + 0.5,
+                location.getY() - 0.2 + (0.25 * hologramLines.size()),
+                location.getZ() + 0.5
+        );
+
         createHologram(topLocation, hologramLines);
+    }
+
+    private String safeFormat(Object value) {
+        try {
+            return value != null ? bwillows.chunkhopper.ChunkHopper.numberFormat.format(value) : "0";
+        } catch (Exception e) {
+            return "0";
+        }
     }
 
     public void createHologram(Location top, List<String> lines) {

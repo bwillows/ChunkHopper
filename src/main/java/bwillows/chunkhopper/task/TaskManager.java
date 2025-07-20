@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -100,12 +101,27 @@ public class TaskManager {
     public void chunkEntityRescan() {
 
         for(bwillows.chunkhopper.model.ChunkHopper chunkHopper : ChunkHopper.instance.manager.chunkHoppers.values()) {
+            if(chunkHopper == null)
+                continue;
+            if(chunkHopper.location == null)
+                continue;
+            if(chunkHopper.location.getChunk() == null)
+                continue;
             if(!chunkHopper.location.getChunk().isLoaded())
                 continue;
             if(!chunkHopper.settings.collectionEnabled)
                 continue;
-            for(Entity entity : chunkHopper.location.getChunk().getEntities()) {
 
+            Entity[] entityArray = chunkHopper.location.getChunk().getEntities();
+            if(entityArray == null || entityArray.length == 0)
+                continue;
+            List<Entity> entities = Arrays.asList(entityArray);
+            if(entities == null || entities.isEmpty())
+                continue;
+
+            for(Entity entity : chunkHopper.location.getChunk().getEntities()) {
+                if(entity == null)
+                    continue;
                 if(!(entity instanceof Item))
                     continue;
                 Item item = (Item) entity;
